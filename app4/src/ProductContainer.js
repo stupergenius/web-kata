@@ -4,19 +4,9 @@ import data from './data.js'
 import './ProductContainer.css'
 import Product from './Product.js'
 
-class ProductContainer extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      products: data.products
-    }
-  }
 
-  render() {    
-    return <div className='product-container'>
-      Product container
+const ProductContainer = (props) => <div className='product-container'>
+      {props.product}
     </div>
-  }
-}
 
 export default ProductContainer
