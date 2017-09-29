@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import data from './data.js'
-import {BrowserRouter} from 'react-router-dom'
+import {BrowserRouter, Route} from 'react-router-dom'
 
 import ProductMenu from './ProductMenu.js'
 import ProductContainer from './ProductContainer.js'
@@ -20,8 +20,9 @@ class App extends Component {
       </div>
       <BrowserRouter>
         <div className='products-container'>
+
           <ProductMenu products={this.state.products} />
-          <ProductContainer />
+          <Route path='/products' component={ProductContainer}/>
         </div>
       </BrowserRouter>
     </div>
