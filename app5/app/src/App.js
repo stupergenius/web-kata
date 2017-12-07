@@ -11,6 +11,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { products: [] }
+    this.removeProduct = this.removeProduct.bind(this);
     this.fetchProducts()
   }
 
@@ -29,6 +30,22 @@ class App extends Component {
       this.setState({ products: json })
     }.bind(this))
   }
+  
+  removeProduct(name)
+  {
+    const url = '/api/products/delete/' + name
+    const options = {
+      method: "DELETE"
+    }
+
+    fetch(url, options)
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(json) {
+      this.setState({ products: json })
+    }.bind(this))
+  }
 
   render() {
     return <div className="App">
@@ -37,7 +54,7 @@ class App extends Component {
       </div>
       <div className='products-add-product'>add product here</div>
       <div className='products-container'>
-        <ProductMenu products={this.state.products} />
+        <ProductMenu products={this.state.products} removeHandler={this.removeProduct} />
         <Route exact path='/products/:productName' component={
           props => <ProductContainer {...props} products={this.state.products} />
         } />
