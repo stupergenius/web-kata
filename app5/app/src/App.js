@@ -22,14 +22,7 @@ class App extends Component {
     const options = {
       method: "GET"
     }
-
-    fetch(url, options)
-    .then(function(response) {
-      return response.json()
-    })
-    .then(function(json) {
-      this.setState({ products: json })
-    }.bind(this))
+    this.callApi(url, options)
   }
   
   removeProduct(name)
@@ -39,18 +32,12 @@ class App extends Component {
       method: "DELETE"
     }
 
-    fetch(url, options)
-    .then(function(response) {
-      return response.json()
-    })
-    .then(function(json) {
-      this.setState({ products: json })
-    }.bind(this))
+    this.callApi(url, options)
   }
 
   addProduct(event){
     event.preventDefault()
-    
+
     const name = event.target.productName.value
     const description = event.target.productDescription.value
     const data = { name, description }
@@ -63,7 +50,10 @@ class App extends Component {
         "Content-Type": "application/json"
       },
     }
+    this.callApi(url, options)
+  }
 
+  callApi(url, options){
     fetch(url, options)
     .then(function(response) {
       return response.json()
