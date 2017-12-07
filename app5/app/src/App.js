@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
+import 'whatwg-fetch'
 import { Route } from 'react-router-dom'
-import data from './data.js'
 
 import ProductMenu from './ProductMenu.js'
 import ProductContainer from './ProductContainer.js'
@@ -10,7 +10,24 @@ class App extends Component {
 
   constructor(props) {
     super(props)
-    this.state = { products: data.products }
+    this.state = { products: [] }
+    this.fetchProducts()
+  }
+
+  fetchProducts()
+  {
+    const url = '/api/products/get'
+    const options = {
+      method: "GET"
+    }
+
+    fetch(url, options)
+    .then(function(response) {
+      return response.json()
+    })
+    .then(function(json) {
+      this.setState({ products: json })
+    }.bind(this))
   }
 
   render() {
