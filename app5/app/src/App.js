@@ -11,6 +11,11 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = { products: data.products }
+      fetch('/api/products/get').then(response => {
+          return response.json()
+      }).then(json => {
+          this.setState({products: json})
+      });
   }
 
   render() {
