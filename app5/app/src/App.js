@@ -26,12 +26,43 @@ class App extends Component {
         });
     }
 
+    handleAddProduct(event){
+        event.preventDefault()
+
+        let data = {
+            name: event.target.name.value,
+            description: event.target.description.value
+        };
+
+        fetch('api/products/add', {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.json()
+        }).then(json => {
+            this.setState({products: json})
+        });
+    }
+
   render() {
     return <div className="App">
       <div className="App-header">
         <h2>Kata 5 - Interaction with backend server through REST API calls</h2>
       </div>
-      <div className='products-add-product'>add product here</div>
+      <div className='products-add-product'>
+          <form onSubmit={this.handleAddProduct.bind(this)}>
+              <label>product name:
+                  <input type='text' name='name' />
+              </label>
+              <label>description:
+                  <input type='text' name='description'/>
+              </label>
+              <input type='submit' value='add product' />
+          </form>
+      </div>
       <div className='products-container'>
         <ProductMenu products={this.state.products} remove={this.remove.bind(this)}/>
         <Route exact path='/products/:productName' component={
