@@ -18,6 +18,14 @@ class App extends Component {
       });
   }
 
+    remove(product) {
+        fetch('/api/products/delete/' + product.name, {method: "DELETE"}).then(response => {
+            return response.json()
+        }).then(json => {
+            this.setState({products: json})
+        });
+    }
+
   render() {
     return <div className="App">
       <div className="App-header">
@@ -25,7 +33,7 @@ class App extends Component {
       </div>
       <div className='products-add-product'>add product here</div>
       <div className='products-container'>
-        <ProductMenu products={this.state.products} />
+        <ProductMenu products={this.state.products} remove={this.remove.bind(this)}/>
         <Route exact path='/products/:productName' component={
           props => <ProductContainer {...props} products={this.state.products} />
         } />
