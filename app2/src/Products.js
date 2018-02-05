@@ -9,7 +9,7 @@ class Product extends Component{
                 <div className='desc'>{this.props.product.description}</div>
             </div>
             <div className='actions'>
-                <div className='remove' title='fix me'>x</div>
+                <div className='remove' title='Remove Product' onClick={(e) => this.props.onRemove(this.props.index)}>x</div>
             </div>
         </div>
     }
@@ -19,8 +19,8 @@ class Products extends Component{
     render(){
         return <div className='products'>
             {this.props.products.map(
-                (p, i) => 
-                <Product product={p} key={'product-' + i }/>
+                (p, i) =>
+                <Product product={p} onRemove={this.props.onRemove} key={'product-' + i } index={i} />
             )}
         </div>
     }
