@@ -32,3 +32,6 @@
 .product .actions .remove{
     cursor: pointer;
 }
+.product .actions .toggleDescription{
+    cursor: pointer;
+}
