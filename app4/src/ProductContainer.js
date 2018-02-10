@@ -12,9 +12,11 @@ class ProductContainer extends Component {
     }
   }
 
-  render() {    
+  render() {
+    const name = this.props.match.params.name
+    const product = _.find(this.state.products, (p) => { return p.name === name })
     return <div className='product-container'>
-      Product container
+        {product && <Product product={product} />}
     </div>
   }
 }
