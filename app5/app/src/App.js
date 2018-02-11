@@ -20,6 +20,21 @@ class App extends Component {
     }, error => {
       this.setState({error: true});
     });
+    
+    this.handleDelete = this.handleDelete.bind(this)
+  }
+  
+  handleDelete(product) {
+    const url = "http://159.89.147.145:5000/api/products/delete/"+encodeURIComponent(product.name)
+    fetch(url, {method: "DELETE"}).then(response => {
+      response.json().then(products => {
+        this.setState({products: products})
+      }, error => {
+        this.setState({error: true});
+      })
+    }, error => {
+      this.setState({error: true});
+    });
   }
 
   render() {
@@ -29,7 +44,7 @@ class App extends Component {
       </div>
       <div className='products-add-product'>add product here</div>
       <div className='products-container'>
-        <ProductMenu products={this.state.products} />
+        <ProductMenu handleDeleteProduct={this.handleDelete} products={this.state.products} />
         <Route exact path='/products/:productName' component={
           props => <ProductContainer {...props} products={this.state.products} />
         } />
